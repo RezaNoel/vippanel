@@ -6,6 +6,6 @@ client_scripts {
 }
 
 
--- server_scripts {
--- "server/functions.lua"
--- }
+server_scripts {
+"server.lua",
+}
