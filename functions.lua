@@ -1,3 +1,7 @@
+local neonlightfront=0
+local neonlightback=0
+local neonlightleft=0
+local neonlightright=0
     --------------------ساخت آر جی بی--------------------
 function RGBRainbow( frequency )
         local result = {}
@@ -24,10 +28,6 @@ function rgbcolor(mode)
                     ToggleVehicleMod(veh, 22, true)
                     SetVehicleXenonLightsCustomColor(veh,rgb.r, rgb.g, rgb.b)
                 elseif mode=="neon" then
-                    SetVehicleNeonLightEnabled(veh,0,true)
-                    SetVehicleNeonLightEnabled(veh,1,true)
-                    SetVehicleNeonLightEnabled(veh,2,true)
-                    SetVehicleNeonLightEnabled(veh,3,true)
                     SetVehicleNeonLightsColour(veh,rgb.r, rgb.g, rgb.b)
                 else
                     TriggerEvent("chatMessage","[Error]",{255,255,0},"rgb moshakhas nashode baraye kojast..!")
@@ -39,7 +39,7 @@ function rgbcolor(mode)
     end)
 end
     -------------------ست کردن رنگ ثابت-------------------
-function cc(cmode,cr,cg,cb)
+function cc(cmode,cr,cg,cb,cn)
 rgbc=false
 rgbcolor()
 if cmode=="primary" then
@@ -48,10 +48,6 @@ elseif cmode=="light" then
     ToggleVehicleMod(veh, 22, true)
     SetVehicleXenonLightsCustomColor(veh, cr,cg,cb)
 elseif cmode=="neon" then
-    SetVehicleNeonLightEnabled(veh,0,true)
-    SetVehicleNeonLightEnabled(veh,1,true)
-    SetVehicleNeonLightEnabled(veh,2,true)
-    SetVehicleNeonLightEnabled(veh,3,true)
     SetVehicleNeonLightsColour(veh,cr,cg,cb)
 elseif cmode=="reset" then
     ToggleVehicleMod(veh, 22, true)
@@ -75,6 +71,7 @@ function vipmenu()
         elements = {
             { label = 'Fix Car', value = 'fix' },
             { label = 'Clean Car', value = 'clean' },
+            { label = 'Full Fuel', value = 'fuel' },
             { label = 'Change Color', value = 'color' },
         }
     }, 
@@ -154,7 +151,7 @@ function vipmenu()
                 title = 'Neons',
                 align = 'top-left',
                 elements = {
-                    { label = 'Red', value = 'red' },
+                    { label = 'Location', value = 'loc' },
                     { label = 'Black', value = 'black' },
                     { label = 'White', value = 'white' },
                     { label = 'Random', value = 'random' },
@@ -162,8 +159,62 @@ function vipmenu()
                 }
             }, 
             function(data, menu)
-                if data.current.value == 'red' then
-                    cc("neon",255,0,0)
+                if data.current.value == 'loc' then
+                    
+
+
+                        ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'loc', {
+                title = 'Location Neon',
+                align = 'top-left',
+                elements = {
+                    { label = 'Left', value = 'left' },
+                    { label = 'Right', value = 'right' },
+                    { label = 'Front', value = 'front' },
+                    { label = 'Back', value = 'back' },
+                }
+            }, 
+            function(data, menu)
+                if data.current.value == 'left' then
+                    if neonlightleft==0 then       
+                    SetVehicleNeonLightEnabled(veh,0,true)
+                    neonlightleft=1
+                    elseif neonlightleft==1 then
+                    SetVehicleNeonLightEnabled(veh,0,false)
+                    neonlightleft=0                        
+                    end
+                elseif data.current.value == 'right'  then
+                    if neonlightright==0 then       
+                    SetVehicleNeonLightEnabled(veh,1,true)
+                    neonlightright=1
+                    elseif neonlightright==1 then
+                    SetVehicleNeonLightEnabled(veh,1,false)
+                    neonlightright=0                        
+                    end
+                
+                elseif data.current.value == 'front' then
+                    if neonlightfront==0 then       
+                    SetVehicleNeonLightEnabled(veh,2,true)
+                    neonlightfront=1
+                    elseif neonlightfront==1 then
+                    SetVehicleNeonLightEnabled(veh,2,false)
+                    neonlightfront=0                        
+                    end
+                elseif data.current.value == 'back' then
+                    if neonlightback==0 then       
+                    SetVehicleNeonLightEnabled(veh,3,true)
+                    neonlightback=1
+                    elseif neonlightback==1 then
+                    SetVehicleNeonLightEnabled(veh,3,false)
+                    neonlightback=0                        
+                    end
+                end
+            end,function(data, menu)menu.close()end)
+
+
+
+
+
+                    
                 elseif data.current.value == 'black' then
                     cc("neon",0,0,0)
                 elseif data.current.value == 'white' then
@@ -187,6 +238,8 @@ function vipmenu()
                 SetVehicleFixed(veh)
     elseif data.current.value == 'clean' then
                 SetVehicleDirtLevel(veh,0.0)
+    elseif data.current.value == 'fuel' then
+                SetVehicleFuelLevel(veh, 100.0)
     end-----First If
 
 end,function(data, menu)menu.close()end)-----First Open Menu
