@@ -5,8 +5,8 @@ fx_version 'cerulean'
 game 'gta5'
 
 author 'Have Good Time..!'
-description 'Have Fub..!'
-version '1.2.0'
+description 'Have Fun..!'
+version '1.3.0'
 
 resource_type 'gametype' { name = 'My awesome game type!' }
 
@@ -16,7 +16,8 @@ client_scripts {
 
 }
 
-
--- server_scripts {
--- "server.lua",
--- }
+server_scripts {
+	'@async/async.lua',
+	'@mysql-async/lib/MySQL.lua',
+	'server.lua'
+}
