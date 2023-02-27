@@ -1,6 +1,3 @@
-------------سرور تا ساخت ایونت ها پیش رفت فقط باید در کلاینت استفاده بشه
-
-
 ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -8,7 +5,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 function AddVip(target, name, cb)
 	local identifier = GetPlayerIdentifier(target, 0)
 
-	MySQL.Async.execute('INSERT INTO vip_user (Name, Owner) VALUES (@Name, @Owner)', {
+	MySQL.Async.execute('INSERT INTO vip_users (Name, Owner) VALUES (@Name, @Owner)', {
 		['@Name']  = name,
 		['@Owner'] = identifier
 	}, function(rowsChanged)
@@ -21,7 +18,7 @@ end
 function RemoveVip(target, name, cb)
 	local identifier = GetPlayerIdentifier(target, 0)
 
-	MySQL.Async.execute('DELETE FROM vip_user WHERE Name = @Name AND Owner = @Owner', {
+	MySQL.Async.execute('DELETE FROM vip_users WHERE Name = @Name AND Owner = @Owner', {
 		['@Name']  = name,
 		['@Owner'] = identifier
 	}, function(rowsChanged)
@@ -47,7 +44,7 @@ end
 function GetVips(target, cb)
 	local identifier = GetPlayerIdentifier(target, 0)
 
-	MySQL.Async.fetchAll('SELECT * FROM vip_user WHERE Owner = @Owner', {
+	MySQL.Async.fetchAll('SELECT * FROM vip_users WHERE Owner = @Owner', {
 		['@Owner'] = identifier
 	}, function(result)
 		local vip   = {}
@@ -84,7 +81,7 @@ end
 function CheckVip(target, name, cb)
 	local identifier = GetPlayerIdentifier(target, 0)
 
-	MySQL.Async.fetchAll('SELECT COUNT(*) as count FROM vip_user WHERE Name = @Name AND Owner = @Owner', {
+	MySQL.Async.fetchAll('SELECT COUNT(*) as count FROM vip_users WHERE Name = @Name AND Owner = @Owner', {
 		['@Name']  = name,
 		['@Owner'] = identifier
 	}, function(result)

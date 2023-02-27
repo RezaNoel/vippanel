@@ -11,13 +11,14 @@ version '1.3.0'
 resource_type 'gametype' { name = 'My awesome game type!' }
 
 client_scripts {
-    "functions.lua",
-    "main.lua",
+    "client/functions.lua",
+    "client/main.lua",
 
 }
 
 server_scripts {
 	'@async/async.lua',
 	'@mysql-async/lib/MySQL.lua',
-	'server.lua'
+    "server/functions.lua",
+    "server/main.lua",
 }

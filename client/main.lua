@@ -3,6 +3,11 @@ local num5=110
 local exit=false
 local rgbc=true
 
+function alert(msg) 
+    SetTextComponentFormat("STRING")
+    AddTextComponentString(msg)
+    DisplayHelpTextFromStringLabel(0,0,1,-1)
+end
 
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -19,8 +24,9 @@ CreateThread(function ()
                         rang = true
                         exit = false
                         r, g, b = GetVehicleCustomPrimaryColour(veh)
-                    end             
+                    end  
                     vipmenu()
+                    
                 end 
             else
                 if exit==false then                               
@@ -36,3 +42,4 @@ CreateThread(function ()
 
 end
 end)
+
