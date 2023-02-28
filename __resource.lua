@@ -11,7 +11,7 @@ version '1.3.0'
 resource_type 'gametype' { name = 'My awesome game type!' }
 
 client_scripts {
-    "client/functions.lua",
+    "client/car.lua",
     "client/main.lua",
 
 }
